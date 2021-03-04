@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".patient_record_upload">
+    tools:context=".patient_record_upload"
+    android:background="@color/black">
 
     <ScrollView
         android:layout_marginTop="10dp"
@@ -23,9 +24,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="25dp"
-                android:text="Enter the details of patient you want to upload"
-                android:textColor="@android:color/black"
+                android:text="RECORD PERSON DETAILS"
+                android:fontFamily="serif"
+                android:textSize="23sp"
+                tools:ignore="NotSibling"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 />
 
             <EditText
@@ -35,10 +39,16 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:layout_marginTop="25dp"
-                android:hint="name of the patient"
-                android:gravity="center"
-                android:layout_below="@+id/textView"/>
-
+                android:hint="Name"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/textView"
+                android:fontFamily="sans-serif-light"
+                android:textColorHint="@color/white"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
 
             <EditText
@@ -47,44 +57,85 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="25dp"
-                android:hint="emergency contact number/family number"
-                android:gravity="center"
-                android:layout_below="@+id/name"/>
+                android:textColorHint="@color/white"
+                android:hint="Emergency Contact Number"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/name"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/medical_history"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
+                android:layout_marginRight="20dp"
+                android:inputType="text"
                 android:layout_marginTop="25dp"
-                android:hint="enter medical details history of patient"
-                android:gravity="center"
-                android:layout_below="@+id/phone"/>
+                android:hint="Allergies(if any)"
+                android:textColorHint="@color/white"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/phone"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/presription_taken"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
+                android:inputType="text"
                 android:layout_marginTop="25dp"
-                android:hint="enter prescriptions taken by patient for his medical treatment"
-                android:gravity="center"
-                android:layout_below="@+id/medical_history"/>
-
+                android:hint="Tablets currently taking(if any)"
+                android:textColorHint="@color/white"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/medical_history"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/additional_info"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_marginTop="25dp"
+                android:hint="Additional Info"
+                android:textColorHint="@color/white"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/presription_taken"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/textView1"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:layout_below="@+id/presription_taken"
-                android:text="choose a way for uplaoding patient image"
-                android:textColor="@android:color/black"
+                android:gravity="left"
+                android:layout_below="@+id/additional_info"
+                android:text="Upload Image"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
                 />
 
 
@@ -103,17 +154,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Gallery"
+                    android:text=" Gallery "
                     android:background="@drawable/roundedbutton"
-                    android:id="@+id/button1" />
+                    android:id="@+id/button1"
+                    android:fontFamily="sans-serif-light"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Take a pic"
+                    android:text=" Take a pic "
                     android:background="@drawable/roundedbutton"
-                    android:id="@+id/button2" />
+                    android:id="@+id/button2"
+                    android:fontFamily="sans-serif-light"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -143,23 +204,21 @@
                 android:textColor="@android:color/black"
                 />
 
-
-
-
-
-
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView2"
                 android:layout_centerInParent="true"
-                android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundedbutton"
                 android:onClick="upload"
-                android:text="Upload"
+                android:text="Save Record"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 />
 
 

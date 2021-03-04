@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity
 
 
         toolbar=findViewById(R.id.toolbar);
-        String text = "<font color=#FF0000>Person </font> <font color=#ffffff>Identifier</font>";
-        toolbar.setTitle(Html.fromHtml(text));
+      //  String text = "<font color=#FFFFFF>P&P</font>";
+      //  toolbar.setTitle(Html.fromHtml(text));
          //setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        String s = "<font color=#FF0000>Team</font><font color=#000000>ML</font>";
-        welcome.setText(Html.fromHtml(s));
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //String s = "<font color=#FF0000>Team</font><font color=#000000>ML</font>";
+        //welcome.setText(Html.fromHtml(s));
 
 
 

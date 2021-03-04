@@ -33,7 +33,7 @@ public class identifying_patient extends AppCompatActivity {
 
 
     ImageView imageview;
-    Button btn_gallery,btn_take_pic;
+    Button btn_take_pic,btn_upload;
     String mPath;
 
     @Override
@@ -43,8 +43,9 @@ public class identifying_patient extends AppCompatActivity {
 
         setAlert();
         imageview=findViewById(R.id.imageview_pic);
-        btn_gallery=findViewById(R.id.button1);
-        btn_take_pic=findViewById(R.id.button2);
+        //btn_gallery=findViewById(R.id.button1);
+        btn_take_pic=findViewById(R.id.button1);
+        btn_upload=findViewById(R.id.upload);
 
 
         mPath = Environment.getExternalStorageDirectory() + "/PersonIdentifier/";
@@ -64,7 +65,7 @@ public class identifying_patient extends AppCompatActivity {
             }
         }
 
-
+/*
         btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +74,7 @@ public class identifying_patient extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"pick an image"),GALLERY_REQUEST_CODE);
             }
-        });
+        });*/
 
         btn_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override

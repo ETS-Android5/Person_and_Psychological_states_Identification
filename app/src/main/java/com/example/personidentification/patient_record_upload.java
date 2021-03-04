@@ -57,7 +57,7 @@ public class patient_record_upload extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 121 ;
 
     private static final String TAG = "patient_record_upload";
-    EditText name,phone,medical_history,prescription_taken;
+    EditText name,phone,medical_history,prescription_taken,additional_info;
     ImageView imageview;
     Button btn_gallery,btn_take_pic;
     String mPath;
@@ -123,6 +123,7 @@ public class patient_record_upload extends AppCompatActivity {
         phone=findViewById(R.id.phone);
         medical_history=findViewById(R.id.medical_history);
         prescription_taken=findViewById(R.id.presription_taken);
+        additional_info=findViewById(R.id.additional_info);
         imageview=findViewById(R.id.imageview_pic);
         btn_gallery=findViewById(R.id.button1);
         btn_take_pic=findViewById(R.id.button2);

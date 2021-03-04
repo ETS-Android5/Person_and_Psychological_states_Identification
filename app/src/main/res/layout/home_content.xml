@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -17,52 +17,81 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             app:titleTextColor="@color/white"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
+    <TextView
+        android:id="@+id/wel22"
+        android:layout_marginTop="85dp"
+        android:layout_below="@id/toolbar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:text="P&amp;P"
+        android:textSize="23sp"
+        android:gravity="center"
+        android:background="@drawable/logo"
+        tools:ignore="NotSibling"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/wel"
-        android:layout_marginTop="65dp"
-        android:layout_marginStart="20dp"
-        android:layout_below="@id/toolbar"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/wel22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:gravity="left"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        tools:ignore="NotSibling" />
+        android:textColor="@color/white"
+        android:text="PERSON"
+        android:textSize="23sp"
+        android:gravity="center"
+        tools:ignore="NotSibling"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/wel11"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/wel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:textColor="@color/white"
+        android:text="&amp;"
+        android:gravity="center"
+        android:textSize="23sp"
+        tools:ignore="NotSibling"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/welcome1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_below="@id/wel"
+        android:layout_below="@id/wel11"
         android:fontFamily="serif"
-        android:text="*** Welcomes you ***"
+        android:text="PSYCHOLOGICAL STATES"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="22sp" />
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/name"
         android:layout_below="@id/welcome1"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:gravity="right"
-        android:textColor="@color/black"
-        android:textSize="22sp"
+        android:gravity="center"
+        android:text="IDENTIFIER"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
         />
 
 
@@ -72,12 +101,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_marginTop="100dp"
         >
 
 
         <Button
             android:id="@+id/btnUpload"
             android:layout_width="225dp"
+            android:layout_marginTop="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
@@ -85,8 +116,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/patient_details"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
@@ -100,8 +131,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/face_identify"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -113,8 +144,8 @@
             android:fontFamily="sans-serif-light"
             android:text="@string/emotion_recognize"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
