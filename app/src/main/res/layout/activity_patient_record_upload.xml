@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".patient_record_upload">
+
+    <ScrollView
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:text="Enter the details of patient you want to upload"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_marginTop="25dp"
+                android:hint="name of the patient"
+                android:gravity="center"
+                android:layout_below="@+id/textView"/>
+
+
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:layout_marginTop="25dp"
+                android:hint="emergency contact number/family number"
+                android:gravity="center"
+                android:layout_below="@+id/name"/>
+
+            <EditText
+                android:id="@+id/medical_history"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:layout_marginTop="25dp"
+                android:hint="enter medical details history of patient"
+                android:gravity="center"
+                android:layout_below="@+id/phone"/>
+
+            <EditText
+                android:id="@+id/presription_taken"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:layout_marginTop="25dp"
+                android:hint="enter prescriptions taken by patient for his medical treatment"
+                android:gravity="center"
+                android:layout_below="@+id/medical_history"/>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_below="@+id/presription_taken"
+                android:text="choose a way for uplaoding patient image"
+                android:textColor="@android:color/black"
+                />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:id="@+id/linear"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Gallery"
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/button1" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Take a pic"
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/button2" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageview_pic"
+                android:layout_weight="1"
+                android:layout_width="280dp"
+                android:layout_height="360dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_baseline_image_24"
+                android:layout_below="@+id/linear"
+                />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageview_pic"
+                android:gravity="center"
+                android:text="after choosing patient image, fill details below"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                />
+
+
+
+
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundedbutton"
+                android:onClick="upload"
+                android:text="Upload"
+                />
+
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
+

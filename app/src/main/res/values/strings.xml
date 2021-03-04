@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Person Identifier</string>
+    <string name="face_identify">FaceIdentifier</string>
+    <string name="emotion_recognize">depression Detector</string>
+    <string name="patient_details">Upload patient record</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
