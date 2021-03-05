@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.bytedeco.javacpp.opencv_core;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
@@ -39,6 +40,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.face.LBPHFaceRecognizer;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -65,7 +67,9 @@ public class patient_record_upload extends AppCompatActivity {
     static final int HEIGHT = 256;
     public String currentimagepath = null;
     CascadeClassifier face_cascade;
-
+    LBPHFaceRecognizer faceRecognizer;
+    private opencv_core.MatVector images;
+    private Mat labels;
      BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status)  {
@@ -315,7 +319,6 @@ public class patient_record_upload extends AppCompatActivity {
             Bitmap bmp = Bitmap.createBitmap(m.width(), m.height(), Bitmap.Config.ARGB_8888);
             Utils.matToBitmap(m, bmp);
             bmp = Bitmap.createScaledBitmap(bmp, WIDTH, HEIGHT, false);
-            Log.d("MyTag","$$$$$$$$$$"+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM));
 
                 //delete the previous pic in faceRec fodler
                 File dir = new File("/storage/emulated/0/PersonIdentifier/");
@@ -331,6 +334,9 @@ public class patient_record_upload extends AppCompatActivity {
                 f = new FileOutputStream(mPath + "image" + ".jpg", true);
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, f);
                 f.close();
+
+                //face identification lbp code here
+                faceRecognizer= LBPHFaceRecognizer.create();
 
             Toast.makeText(patient_record_upload.this, "patient records uploaded successfully", Toast.LENGTH_SHORT).show();}
         } else {
