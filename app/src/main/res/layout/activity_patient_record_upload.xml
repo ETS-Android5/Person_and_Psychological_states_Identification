@@ -207,12 +207,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/upload"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView2"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/roundedbutton"
-                android:onClick="upload"
                 android:text="Save Record"
                 android:fontFamily="sans-serif-light"
                 android:textAllCaps="false"

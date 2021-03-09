@@ -1,17 +1,59 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.chaquo.python'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.example.personidentification"
+        python{
+            pip{
+                install 'pyrebase4'
+                install "facenet_pytorch"
+                install "torchvision"
+                install "torch"
+                install "torch-utils"
+            }
+        }
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        sourceSets {
+            main {
+                python.srcDir "src/main/python"
+            }
+        }
+        python {
+            buildPython "/home/hp/anaconda3/bin/python3.7"
+        }
     }
+    packagingOptions {
+        //exclude 'META-INF/LICENSE.txt'
+        //exclude 'META-INF/NOTICE.txt'
+        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.properties'
+        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.xml'
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+
+        //might need these if you use openCV
+        exclude 'META-INF/maven/org.bytedeco.javacpp-presets/opencv/pom.properties'
+        exclude 'META-INF/maven/org.bytedeco.javacpp-presets/opencv/pom.xml'
+    }
+
 
     packagingOptions {
         //exclude 'META-INF/LICENSE.txt'
@@ -48,6 +90,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':openCVLibrary343')
+    implementation 'com.google.firebase:firebase-database:19.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

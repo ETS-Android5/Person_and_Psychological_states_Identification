@@ -3,12 +3,18 @@ package com.example.personidentification;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,33 +26,49 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class identifying_patient extends AppCompatActivity {
-    private static final int GALLERY_REQUEST_CODE=123;
+public class identifying_patient extends AppCompatActivity  {
+
     private static final int CAMERA_REQUEST = 121 ;
 
-
+    TextView name,contact,medical_history,prescription_taken,additional_info;
     ImageView imageview;
     Button btn_take_pic,btn_upload;
     String mPath;
+    public String currentimagepath = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identifying_patient);
 
-        setAlert();
+        // setAlert();
         imageview=findViewById(R.id.imageview_pic);
-        //btn_gallery=findViewById(R.id.button1);
         btn_take_pic=findViewById(R.id.button1);
         btn_upload=findViewById(R.id.upload);
-
+        name=findViewById(R.id.name);
+        contact=findViewById(R.id.phone);
+        medical_history=findViewById(R.id.medical_history);
+        prescription_taken=findViewById(R.id.presription_taken);
+        additional_info=findViewById(R.id.additional_info);
+        //final ProgressDialog dialog = new ProgressDialog(identifying_patient.this);
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
+        Python py = Python.getInstance();
+        final PyObject pyobj = py.getModule("Algorithm");   // here give name of python file
 
         mPath = Environment.getExternalStorageDirectory() + "/PersonIdentifier/";
         Log.e("Path", mPath);
@@ -65,22 +87,61 @@ public class identifying_patient extends AppCompatActivity {
             }
         }
 
-/*
-        btn_gallery.setOnClickListener(new View.OnClickListener() {
+        btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"pick an image"),GALLERY_REQUEST_CODE);
+            public void onClick(View v) {
+
+                BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                try {
+                    File file = new File(mPath+ "/image.jpg");
+                    FileOutputStream out = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.flush();
+                    out.close();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                //dialog.show(identifying_patient.this, "", "Please wait...Fetching", true);
+                //final PyObject obj;
+                final PyObject obj = pyobj.callAttr("find_patient",mPath+"/image.jpg");
+                name.setText(obj.toString());
+                Toast.makeText(identifying_patient.this,"Results are successfully fetched from database", Toast.LENGTH_SHORT).show();
+
+             /*final PyObject obj = pyobj.callAttr("find_patient",mPath+"/image.jpg");
+              if (obj.toString()!="") {
+                  dialog.dismiss();
+                  name.setText(obj.toString());
+                  Toast.makeText(identifying_patient.this,"Results are successfully fetched from database", Toast.LENGTH_SHORT).show();
+                 // dialog.cancel();
+                  //dialog.setOnCancelListener();
+              }*/
+                //name.setText(obj.toString());
+                //Toast.makeText(identifying_patient.this,"Results are successfully fetched from database", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
         btn_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent camera=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(camera,CAMERA_REQUEST);
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = getImagefile();
+                    } catch (IOException ex) {
+
+                    }
+                    if (photoFile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(identifying_patient.this,
+                                "com.example.android.fileprovider",
+                                photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                    }
+                }
             }
         });
 
@@ -110,22 +171,33 @@ public class identifying_patient extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_REQUEST_CODE) {
-            Uri imagedata = data.getData();
-            imageview.setImageURI(imagedata);
-        }
-
         if(requestCode==CAMERA_REQUEST){
-            Bitmap photo=(Bitmap)data.getExtras().get("data");
-            imageview.setImageBitmap(photo);
+            int targetW = imageview.getWidth();
+            int targetH = imageview.getHeight();
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(currentimagepath, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+            int scaleFactor = Math.max(1, Math.min(photoW/targetW, photoH/targetH));
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+            Bitmap bitmap = BitmapFactory.decodeFile(currentimagepath, bmOptions);
+            imageview.setImageBitmap(bitmap);
         }
     }
 
-    public void upload(View view) throws IOException {
-
-    // here match lbp of input input vht firebase images and output the results
-       Toast.makeText(this,"results are successfully fetched from database", Toast.LENGTH_SHORT).show();
-
+    private File getImagefile() throws IOException {
+        String imageFileName =  "Image";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+        currentimagepath = image.getAbsolutePath();
+        return image;
     }
 
     @Override
@@ -152,7 +224,7 @@ public class identifying_patient extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
 

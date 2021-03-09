@@ -4,19 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import android.app.AlertDialog;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +24,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+<<<<<<< Updated upstream
 
 import org.bytedeco.javacpp.opencv_core;
 import org.opencv.android.BaseLoaderCallback;
@@ -46,12 +46,15 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 import java.io.ByteArrayOutputStream;
+=======
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
+>>>>>>> Stashed changes
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 
 public class patient_record_upload extends AppCompatActivity {
@@ -59,13 +62,16 @@ public class patient_record_upload extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 121 ;
 
     private static final String TAG = "patient_record_upload";
+    String patient_name,contact,medical,prescription,add_info;
     EditText name,phone,medical_history,prescription_taken,additional_info;
     ImageView imageview;
-    Button btn_gallery,btn_take_pic;
+    //ProgressBar pb;
+    Button btn_gallery,btn_take_pic,btn_upload;
     String mPath;
     static final int WIDTH = 256;
     static final int HEIGHT = 256;
     public String currentimagepath = null;
+<<<<<<< Updated upstream
     CascadeClassifier face_cascade;
     LBPHFaceRecognizer faceRecognizer;
     private opencv_core.MatVector images;
@@ -90,49 +96,34 @@ public class patient_record_upload extends AppCompatActivity {
                         }
                         is.close();
                         os.close();
-
-                        face_cascade = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-                        if(face_cascade.empty())
-                        {
-                            Log.d("MyActivity","--(!)Error loading A\n");
-                            return;
-                        }
-                        else
-                        {
-                            Log.d("MyActivity",
-                                    "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("MyActivity", "Failed to load cascade. Exception thrown: " + e);
-                    }
+=======
+>>>>>>> Stashed changes
 
 
-                } break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                } break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record_upload);
 
-     //   setAlert();
-        name=findViewById(R.id.name);
-        phone=findViewById(R.id.phone);
-        medical_history=findViewById(R.id.medical_history);
-        prescription_taken=findViewById(R.id.presription_taken);
-        additional_info=findViewById(R.id.additional_info);
-        imageview=findViewById(R.id.imageview_pic);
-        btn_gallery=findViewById(R.id.button1);
-        btn_take_pic=findViewById(R.id.button2);
-
-        System.loadLibrary("opencv_java3");
+        setAlert();
+        name = findViewById(R.id.name);
+        phone = findViewById(R.id.phone);
+        medical_history = findViewById(R.id.medical_history);
+        prescription_taken = findViewById(R.id.presription_taken);
+        additional_info = findViewById(R.id.additional_info);
+        imageview = findViewById(R.id.imageview_pic);
+        btn_gallery = findViewById(R.id.button1);
+        btn_take_pic = findViewById(R.id.button2);
+        btn_upload = (Button) findViewById(R.id.upload);
+        // pb=findViewById(R.id.pb);
+        //pb.setVisibility(View.GONE);
+        final ProgressDialog dialog = new ProgressDialog(patient_record_upload.this);
+        if (!Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+        Python py = Python.getInstance();
+        final PyObject pyobj = py.getModule("Algorithm");   // here give name of python file
 
         mPath = Environment.getExternalStorageDirectory() + "/PersonIdentifier/";
         Log.d("Path", mPath);
@@ -143,11 +134,9 @@ public class patient_record_upload extends AppCompatActivity {
 
 
         File dir = new File("/storage/emulated/0/PersonIdentifier/");
-        if (dir.isDirectory())
-        {
+        if (dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i = 0; i < children.length; i++)
-            {
+            for (int i = 0; i < children.length; i++) {
                 new File(dir, children[i]).delete();
             }
         }
@@ -159,15 +148,13 @@ public class patient_record_upload extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"pick an image"),GALLERY_REQUEST_CODE);
+                startActivityForResult(Intent.createChooser(intent, "pick an image"), GALLERY_REQUEST_CODE);
             }
         });
 
         btn_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  Intent camera=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-              //  startActivityForResult(camera,CAMERA_REQUEST);
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     File photoFile = null;
@@ -186,6 +173,101 @@ public class patient_record_upload extends AppCompatActivity {
                 }
             }
         });
+
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // delete previous patient name folders
+                File dir = new File("/storage/emulated/0/PersonIdentifier/");
+                if (dir.isDirectory()) {
+                    String[] children = dir.list();
+                    for (int i = 0; i < children.length; i++) {
+                        new File(dir, children[i]).delete();
+                    }
+                }
+
+
+                patient_name = name.getText().toString();
+                contact = phone.getText().toString();
+                medical = medical_history.getText().toString();
+                prescription = prescription_taken.getText().toString();
+                add_info = additional_info.getText().toString();
+
+                if (name.getText().toString().isEmpty()) {
+                    Toast.makeText(patient_record_upload.this, "name is mandatory", Toast.LENGTH_SHORT).show();
+                    name.requestFocus();
+                } else {
+                    if (phone.getText().toString().length() == 10) {
+                        if (imageview.getDrawable() == null) {
+                            Toast.makeText(patient_record_upload.this, "patient image required", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (medical_history.getText().toString().isEmpty() || prescription_taken.getText().toString().isEmpty()) {
+                            Toast.makeText(patient_record_upload.this, "provide medical records and prescription details", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (add_info.isEmpty()) {
+                            add_info = "empty";
+                        }
+
+                        File pat_fold = new File(mPath + "/" + patient_name);
+                        if (!pat_fold.exists()) {
+                            pat_fold.mkdir();
+                        }
+
+                        BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
+                        Bitmap bitmap = drawable.getBitmap();
+                        try {
+                            File file = new File(mPath + "/" + patient_name + "/image.jpg");
+                            FileOutputStream out = new FileOutputStream(file);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                            out.flush();
+                            out.close();
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        //pb.setVisibility(View.VISIBLE);
+                        dialog.show(patient_record_upload.this, "", "Please wait...Uploading", true);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                PyObject obj = pyobj.callAttr("Algorithm", mPath,
+                                        patient_name,
+                                        contact,
+                                        medical,
+                                        prescription,
+                                        add_info);
+                                name.setText("");
+                                phone.setText("");
+                                medical_history.setText("");
+                                prescription_taken.setText("");
+                                additional_info.setText("");
+                                Log.d(TAG, obj.toString());
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                        Intent myintent = new Intent(patient_record_upload.this, MainActivity.class);
+                                        //myintent.putExtra("translate", str);
+                                        startActivity(myintent);
+                                        Toast.makeText(patient_record_upload.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }).start();
+
+
+                    } else {
+                        Toast.makeText(patient_record_upload.this, "not a valid number", Toast.LENGTH_SHORT).show();
+                        phone.requestFocus();
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
@@ -197,7 +279,6 @@ public class patient_record_upload extends AppCompatActivity {
         }
 
         if(requestCode==CAMERA_REQUEST){
-
             int targetW = imageview.getWidth();
             int targetH = imageview.getHeight();
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -243,6 +324,7 @@ public class patient_record_upload extends AppCompatActivity {
     }
 
 
+<<<<<<< Updated upstream
 
     public void load_cascade(){
         try {
@@ -350,17 +432,11 @@ public class patient_record_upload extends AppCompatActivity {
     }
 
 
+=======
+>>>>>>> Stashed changes
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (OpenCVLoader.initDebug()) {
-            Log.d(TAG, "OpenCV connected successfully");
-            baseLoaderCallback.onManagerConnected(BaseLoaderCallback.SUCCESS);
-        } else {
-            Log.d(TAG, "OpenCV not connected successfully");
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_4_0, this, baseLoaderCallback);
-        }
     }
 
     @Override
