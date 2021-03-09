@@ -146,7 +146,7 @@ public class identifying_patient extends AppCompatActivity  {
         });
 
     }
-
+/*
     private void setAlert() {
 
         AlertDialog.Builder al = new AlertDialog.Builder(identifying_patient.this);
@@ -165,7 +165,7 @@ public class identifying_patient extends AppCompatActivity  {
         al.show();
     }
 
-
+*/
 
 
     @Override

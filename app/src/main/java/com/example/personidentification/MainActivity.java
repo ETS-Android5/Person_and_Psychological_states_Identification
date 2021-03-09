@@ -21,9 +21,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import org.opencv.android.OpenCVLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
