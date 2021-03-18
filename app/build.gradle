@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.chaquo.python'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -31,14 +30,10 @@ android {
             }
         }
         python {
-            buildPython "/home/hp/anaconda3/bin/python3.7"
+            buildPython "C:/Users/Vinith M/AppData/Local/Programs/Python/Python38/python.exe"
         }
     }
     packagingOptions {
-        //exclude 'META-INF/LICENSE.txt'
-        //exclude 'META-INF/NOTICE.txt'
-        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.properties'
-        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.xml'
         exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -56,10 +51,6 @@ android {
 
 
     packagingOptions {
-        //exclude 'META-INF/LICENSE.txt'
-        //exclude 'META-INF/NOTICE.txt'
-        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.properties'
-        //exclude 'META-INF/maven/org.bytedeco.javacpp-presets/ffmpeg/pom.xml'
         exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -85,19 +76,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation project(path: ':openCVLibrary343')
-    implementation 'com.google.firebase:firebase-database:19.3.0'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation files('libs/javacpp.jar')
-    implementation files('libs/javacv.jar')
-    implementation files('libs/opencv-android-arm.jar')
-    implementation files('libs/opencv-android-x86_64.jar')
-    implementation files('libs/opencv.jar')
 
 }
