@@ -26,31 +26,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-<<<<<<< Updated upstream
-
-import org.bytedeco.javacpp.opencv_core;
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.face.LBPHFaceRecognizer;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;
-
 import java.io.ByteArrayOutputStream;
-=======
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
->>>>>>> Stashed changes
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,33 +50,7 @@ public class patient_record_upload extends AppCompatActivity {
     static final int WIDTH = 256;
     static final int HEIGHT = 256;
     public String currentimagepath = null;
-<<<<<<< Updated upstream
-    CascadeClassifier face_cascade;
-    LBPHFaceRecognizer faceRecognizer;
-    private opencv_core.MatVector images;
-    private Mat labels;
-     BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {
-        @Override
-        public void onManagerConnected(int status)  {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
-                    Log.d("OpenCV", "OpenCV loaded successfully");
-                    try {
-                        InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_alt2);
-                        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-                        File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_alt2.xml");
-                        FileOutputStream os = new FileOutputStream(mCascadeFile);
 
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = is.read(buffer)) != -1) {
-                            os.write(buffer, 0, bytesRead);
-                        }
-                        is.close();
-                        os.close();
-=======
->>>>>>> Stashed changes
 
 
 
@@ -324,116 +277,6 @@ public class patient_record_upload extends AppCompatActivity {
     }
 
 
-<<<<<<< Updated upstream
-
-    public void load_cascade(){
-        try {
-            InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_alt2);
-            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_alt2.xml");
-            FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            is.close();
-            os.close();
-
-            face_cascade = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-            if(face_cascade.empty())
-            {
-                Log.d("MyActivity","--(!)Error loading A\n");
-                return;
-            }
-            else
-            {
-                Log.d("MyActivity",
-                        "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("MyActivity", "Failed to load cascade. Exception thrown: " + e);
-        }
-    }
-
-
-    public void upload(View view) throws IOException {
-
-        if(name.getText().toString().isEmpty()){
-            Toast.makeText(patient_record_upload.this, "name is mandatory", Toast.LENGTH_SHORT).show();
-            name.requestFocus();
-            return;
-        }
-        else
-        if (phone.getText().toString().length() == 0) {
-            if(imageview.getDrawable()==null){
-                Toast.makeText(this, "patient image required", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(medical_history.getText().toString().isEmpty() || prescription_taken.getText().toString().isEmpty()){
-                Toast.makeText(this, "provide medical records and prescription details", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // here comes identification code and upload details with image lbp values to firefox
-
-            BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
-
-            Mat mRGBA = new Mat(bitmap.getWidth(), bitmap.getHeight(), CvType.CV_8UC1);
-            Utils.bitmapToMat(bitmap, mRGBA);
-
-            Imgproc.cvtColor(mRGBA, mRGBA, Imgproc.COLOR_RGB2GRAY);
-            Mat m;
-            MatOfRect faceDetections = new MatOfRect();
-            face_cascade.detectMultiScale(mRGBA, faceDetections);
-            final Rect[] facesArray = faceDetections.toArray();
-            if(facesArray.length == 0){
-                Toast.makeText(this,"no face detected",Toast.LENGTH_LONG).show();
-            }else{
-
-            Rect r = facesArray[0];
-          //  r.height = (int) ((r.height * 1.2)+2);
-          //  r.width = (int) ((r.width * 1.3)+1);
-            m = mRGBA.submat(r);
-            Bitmap bmp = Bitmap.createBitmap(m.width(), m.height(), Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(m, bmp);
-            bmp = Bitmap.createScaledBitmap(bmp, WIDTH, HEIGHT, false);
-
-                //delete the previous pic in faceRec fodler
-                File dir = new File("/storage/emulated/0/PersonIdentifier/");
-                if (dir.isDirectory())
-                {
-                    String[] children = dir.list();
-                    for (int i = 0; i < children.length; i++)
-                    {
-                        new File(dir, children[i]).delete();
-                    }
-                }
-            FileOutputStream f;
-                f = new FileOutputStream(mPath + "image" + ".jpg", true);
-                bmp.compress(Bitmap.CompressFormat.JPEG, 100, f);
-                f.close();
-
-                //face identification lbp code here
-                faceRecognizer= LBPHFaceRecognizer.create();
-
-            Toast.makeText(patient_record_upload.this, "patient records uploaded successfully", Toast.LENGTH_SHORT).show();}
-        } else {
-            Toast.makeText(patient_record_upload.this, "not a valid number", Toast.LENGTH_SHORT).show();
-            phone.requestFocus();
-            return;
-        }
-
-
-
-    }
-
-
-=======
->>>>>>> Stashed changes
     @Override
     protected void onResume() {
         super.onResume();
