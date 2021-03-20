@@ -45,7 +45,7 @@ import java.io.InputStream;
 public class patient_record_upload extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE=123;
     private static final int CAMERA_REQUEST = 121 ;
-
+    boolean exit = false;
     private static final String TAG = "patient_record_upload";
     String patient_name,contact,medical,prescription,add_info;
     EditText name,phone,medical_history,prescription_taken,additional_info;
@@ -216,37 +216,71 @@ public class patient_record_upload extends AppCompatActivity {
                             ex.printStackTrace();
                         }
                         //pb.setVisibility(View.VISIBLE);
-                        dialog.show(patient_record_upload.this, "", "Please wait...Uploading", true);
+                        dialog.show(patient_record_upload.this, "", "Please wait...", true);
 
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                PyObject obj = pyobj.callAttr("Algorithm", mPath,
-                                        patient_name,
-                                        contact,
-                                        medical,
-                                        prescription,
-                                        add_info);
-                                name.setText("");
-                                phone.setText("");
-                                medical_history.setText("");
-                                prescription_taken.setText("");
-                                additional_info.setText("");
-                                Log.d(TAG, obj.toString());
 
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        dialog.dismiss();
-                                        Intent myintent = new Intent(patient_record_upload.this, MainActivity.class);
-                                        //myintent.putExtra("translate", str);
-                                        startActivity(myintent);
-                                        Toast.makeText(patient_record_upload.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                    final PyObject obj = pyobj.callAttr("Algorithm", mPath,
+                                            patient_name,
+                                            contact,
+                                            medical,
+                                            prescription,
+                                            add_info);
+
+                                    //if (obj.toString()=="many"){
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                dialog.dismiss();
+                                                Intent myintent = new Intent(patient_record_upload.this, MainActivity.class);
+                                                //myintent.putExtra("translate", str);
+                                                startActivity(myintent);
+                                                Log.d("Output", obj.toString());
+                                                if(obj.toString()=="many"){
+                                                Toast.makeText(patient_record_upload.this, "Cant Upload as many faces detected", Toast.LENGTH_SHORT).show();}
+                                                else{
+                                                    if(obj.toString()=="zero"){
+                                                        Toast.makeText(patient_record_upload.this, "Cant Upload as no faces detected", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    else{
+                                                        Toast.makeText(patient_record_upload.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                   // }
+                                    /*else {
+                                        if (obj.toString() == "zero") {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dialog.dismiss();
+                                                    Intent myintent = new Intent(patient_record_upload.this, MainActivity.class);
+                                                    //myintent.putExtra("translate", str);
+                                                    startActivity(myintent);
+                                                    Toast.makeText(patient_record_upload.this, "Cant Upload as no faces detected", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                        else{
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                dialog.dismiss();
+                                                Intent myintent = new Intent(patient_record_upload.this, MainActivity.class);
+                                                //myintent.putExtra("translate", str);
+                                                startActivity(myintent);
+                                                Toast.makeText(patient_record_upload.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                            }*/
+                                        //});}
+                                   // }
                             }
-                        }).start();
 
+
+                    }).start();
 
                     } else {
                         Toast.makeText(patient_record_upload.this, "not a valid number", Toast.LENGTH_SHORT).show();

@@ -1,10 +1,9 @@
 from facenet_pytorch import MTCNN, InceptionResnetV1
 import torch
-from torchvision import datasets
-from torch.utils.data import DataLoader
 from PIL import Image
 import numpy as np
 import pyrebase
+
 
 firebaseConfig = {
     'apiKey': "AIzaSyAMJv3Ooto_AAr1shf9MkPVkHbl0yqlZrM",
@@ -40,24 +39,25 @@ def push_to_firebase(emb,name,contact,medical_history,prescription_taken,additio
     return "successfully updated details"
 
 def Algorithm(path,name,contact,medical_history,prescription_taken,additional_info):
-    dataset=datasets.ImageFolder(path) # photos folder path
+    pp=path+"/"+name+"/image.jpg";
     mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) # initializing mtcnn for face detection
     resnet = InceptionResnetV1(pretrained='vggface2').eval() # initializing resnet for face img to embeding conversion
+    img = Image.open(pp)
+    img_cropped = mtcnn(img)
 
-
-    idx_to_class = {i:c for c,i in dataset.class_to_idx.items()} # accessing names of peoples from folder names
-
-    def collate_fn(x):
-        return x[0]
-
-    loader = DataLoader(dataset, collate_fn=collate_fn)
-
-    for img, idx in loader:
-        face, prob = mtcnn(img, return_prob=True)
-        if face is not None and prob>0.90: # if face detected and porbability > 90%
-            emb = resnet(face.unsqueeze(0)) # passing cropped face into resnet model to get embedding matrix
-    res=push_to_firebase(emb,name,contact,medical_history,prescription_taken,additional_info)
-    return res
+    boxes, probs= mtcnn.detect(img)
+    if boxes is None:
+        boxes = []
+    if (len(boxes)>1):
+        return "many"
+    elif (len(boxes)==0):
+        return "zero"
+    else:
+        img_embedding = resnet(img_cropped.unsqueeze(0))
+        #resnet.classify = True
+        #img_probs = resnet(img_cropped.unsqueeze(0))
+        res=push_to_firebase(img_embedding,name,contact,medical_history,prescription_taken,additional_info)
+        return res
 
 def get_embeddigns_names_from_firebsae():
     embedding_list=[]  # get all embs from firebase
@@ -112,4 +112,44 @@ def find_patient(img_paht):
         additional_info='not available'
         return "Person detail not found"
 
+#to edit details of a patient
+def edit_details_in_firebase(name,contact,medical_history,prescription_taken,additional_info,key):
+    old_contact=db.child("patients").child(key).child('contact').get().val()
+    old_medical_hist = db.child("patients").child(key).child('medical_history').get().val()
+    old_prescription_taken=db.child("patients").child(key).child('prescription_taken').get().val()
+    old_additional_info=db.child("patients").child(key).child('additional_info').get().val()
+    emb=db.child("patients").child(key).child('embeding').get().val()
 
+    if(contact==""):
+        contact=old_contact
+    if(medical_history==""):
+        medical_history=old_medical_hist
+    if(prescription_taken==""):
+        prescription_taken=old_prescription_taken
+    if(additional_info==""):
+        additional_info=old_additional_info
+
+    data =  {  'name': name,               #insrt the data you want to upload
+               'embeding':emb,
+               'contact':contact,
+               'medical_history': medical_history,
+               'prescription_taken':prescription_taken,
+               'additional_info':additional_info
+               }
+
+    db.child("patients").child(key).set(data)          #push data into firebase
+    return "successfully updated details"
+
+#start to edit details of patient
+def edit_details(name,contact,medical_history,prescription_taken,additional_info):
+    name=name.lower()
+    name_list=[]
+    patients=db.child('patients').shallow().get()
+    dict_keys=list(patients.val())    #pk of table
+    for i in dict_keys:
+        name_list.append((db.child("patients").child(i).child('name').get().val()).lower())     #get names of db
+    if(name in name_list):
+        id_of_patient=dict_keys[name_list.index(name)]
+        return edit_details_in_firebase(name,contact,medical_history,prescription_taken,additional_info,id_of_patient)
+    else:
+        return "patient is not registered or check patient name you have given"
