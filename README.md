@@ -24,21 +24,21 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 <img src="Screenshots/First.jpg" alt="Application Homescreen" width="350" height="550" />
 
-![Registration Module](Screenshots/Second.jpg | width=10 | height=10)
+<img src="Screenshots/Second.jpg" alt="Registration Module" width="350" height="550" />
 
-![Registered](Screenshots/Third.jpg | width=10 | height=10)
+<img src="Screenshots/Third.jpg" alt="Registered" width="350" height="550" />
 
 #### Identification Module:
 
-![Identification Module](Screenshots/Fourth.jpg | width=10 | height=10)
+<img src="Screenshots/Fourth.jpg" alt="Identification Module" width="350" height="550" />
 
-![Identified](Screenshots/Fifth.jpg | width=10 | height=10)
+<img src="Screenshots/Fifth.jpg" alt="Identified" width="350" height="550" />
 
 #### Depression Detection Module:
 
-![Depression Module](Screenshots/Sixth.jpg | width=10 | height=10)
+<img src="Screenshots/Sixth.jpg" alt="Depression Module" width="350" height="550" />
 
-![Detected](Screenshots/Seventh.jpg | width=10 | height=10)
+<img src="Screenshots/Seventh.jpg" alt="Detected" width="350" height="550" />
 
 ### Results:
 
