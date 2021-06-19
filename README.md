@@ -22,24 +22,24 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 #### Registration Module:
 
-<img src="Screenshots/First.jpg" alt="Application Homescreen" width="350" height="550" />
-
-<img src="Screenshots/Second.jpg" alt="Registration Module" width="350" height="550" />
-
-<img src="Screenshots/Third.jpg" alt="Registered" width="350" height="550" />
+<p float="left">
+<img src="Screenshots/First.jpg" alt="Application Homescreen" width="250" height="500" />
+<img src="Screenshots/Second.jpg" alt="Registration Module" width="250" height="500" />
+<img src="Screenshots/Third.jpg" alt="Registered" width="250" height="500" />
+</p>
 
 #### Identification Module:
 
 <p float="left">
-<img src="Screenshots/Fourth.jpg" alt="Identification Module" width="350" height="550" />
-<img src="Screenshots/Fifth.jpg" alt="Identified" width="350" height="550" />
+<img src="Screenshots/Fourth.jpg" alt="Identification Module" width="250" height="500" />
+<img src="Screenshots/Fifth.jpg" alt="Identified" width="250" height="500" />
 </p>
 
 #### Depression Detection Module:
 
 <p float="left">
-<img src="Screenshots/Sixth.jpg" alt="Depression Module" width="350" height="550" />
-<img src="Screenshots/Seventh.jpg" alt="Detected" width="350" height="550" />
+<img src="Screenshots/Sixth.jpg" alt="Depression Module" width="250" height="500" />
+<img src="Screenshots/Seventh.jpg" alt="Detected" width="250" height="500" />
  </p>
 
 ### Results:
