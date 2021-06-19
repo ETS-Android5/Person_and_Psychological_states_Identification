@@ -32,7 +32,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".edit_patient_details"></activity>
+        <activity android:name=".BugReport"></activity>
+        <activity android:name=".About" />
+        <activity android:name=".edit_patient_details" />
+        <activity android:name=".settings" />
         <activity android:name=".depression_detection" />
         <activity android:name=".identifying_patient" />
         <activity android:name=".patient_record_upload" />
@@ -41,7 +44,6 @@
             android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

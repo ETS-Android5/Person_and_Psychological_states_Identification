@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,17 +19,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
         //implements NavigationView.OnNavigationItemSelectedListener
-    {
+{
 
     protected DrawerLayout drawerLayout;
-  //  NavigationView navigationView;
+    NavigationView navigationView;
     Toolbar toolbar;
     TextView welcome,welcome1;
     Toast t;
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity
 
 
         toolbar=findViewById(R.id.toolbar);
-      //  String text = "<font color=#FFFFFF>P&P</font>";
-      //  toolbar.setTitle(Html.fromHtml(text));
-         //setSupportActionBar(toolbar);
+        //  String text = "<font color=#FFFFFF>P&P</font>";
+        //  toolbar.setTitle(Html.fromHtml(text));
+        //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         //String s = "<font color=#FF0000>Team</font><font color=#000000>ML</font>";
         //welcome.setText(Html.fromHtml(s));
@@ -73,9 +72,9 @@ public class MainActivity extends AppCompatActivity
 
 
         drawerLayout=findViewById(R.id.drawer_layout);
-        //navigationView=findViewById(R.id.nav_id);
+        navigationView=findViewById(R.id.nav_id);
 
-       // navigationView.bringToFront();
+        navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
 
@@ -83,8 +82,7 @@ public class MainActivity extends AppCompatActivity
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-       // navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
         upload_patient_details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,37 +161,26 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
     }
 
-/*
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()){
 
-            case R.id.home:
-                if(t!=null){
-                    t.cancel();
-                }
-                t=Toast.makeText(this, "you are in Home page", Toast.LENGTH_SHORT);
-                t.show();
-                return true;
-
-
-
-            case R.id.change_password:
-                Intent ia = new Intent(this,settings.class);
+            case R.id.edit_patient_details:
+                Intent ia = new Intent(MainActivity.this,edit_patient_details.class);
                 startActivity(ia);
                 return true;
 
-
-
-
             case R.id.bug_report:
-
-                Toast.makeText(this, "bug report", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, BugReport.class);
+                startActivity(i);
                 return true;
 
             case R.id.logout:
-                Toast.makeText(this, "Logout..", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, About.class);
+                startActivity(intent);
                 return true ;
 
         }
@@ -201,7 +188,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-*/
+
 
     private Boolean exit = false;
     @Override
@@ -226,6 +213,4 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
-
-
 }

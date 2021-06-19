@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginTop="20dp"
                 android:text="PATIENT IDENTIFIER"
                 android:textColor="@android:color/white"
                 android:fontFamily="serif"
@@ -32,14 +33,28 @@
                 android:textStyle="bold"
                 />
 
+            <TextView
+                android:id="@+id/desc"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Recognizes you and displays your medical details"
+                android:textColor="@android:color/white"
+                android:fontFamily="serif"
+                android:textSize="14dp"
+                tools:ignore="NotSibling"
+                android:textStyle="bold"
+                />
 
 
 
             <ImageView
                 android:id="@+id/imageview_pic"
-                android:layout_weight="1"
-                android:layout_width="280dp"
-                android:layout_height="360dp"
+                android:layout_width="250dp"
+                android:layout_height="320dp"
+                android:layout_marginVertical="25dp"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
                 android:scaleType="fitXY"
@@ -53,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_weight="1"
                 android:id="@+id/linear"
                 android:layout_centerInParent="true"
                 android:layout_below="@+id/imageview_pic"

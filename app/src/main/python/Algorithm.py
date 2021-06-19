@@ -3,7 +3,8 @@ import torch
 from PIL import Image
 import numpy as np
 import pyrebase
-
+from fer import FER
+import matplotlib.pyplot as plt
 
 firebaseConfig = {
     'apiKey': "AIzaSyAMJv3Ooto_AAr1shf9MkPVkHbl0yqlZrM",
@@ -39,25 +40,26 @@ def push_to_firebase(emb,name,contact,medical_history,prescription_taken,additio
     return "successfully updated details"
 
 def Algorithm(path,name,contact,medical_history,prescription_taken,additional_info):
-    pp=path+"/"+name+"/image.jpg";
+    pp=path+"/image.jpg";
     mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) # initializing mtcnn for face detection
     resnet = InceptionResnetV1(pretrained='vggface2').eval() # initializing resnet for face img to embeding conversion
     img = Image.open(pp)
     img_cropped = mtcnn(img)
 
+
     boxes, probs= mtcnn.detect(img)
     if boxes is None:
         boxes = []
     if (len(boxes)>1):
-        return "many"
+        return "Cant Upload as many faces detected"
     elif (len(boxes)==0):
-        return "zero"
+        return "Cant Upload as no faces detected"
     else:
         img_embedding = resnet(img_cropped.unsqueeze(0))
         #resnet.classify = True
         #img_probs = resnet(img_cropped.unsqueeze(0))
         res=push_to_firebase(img_embedding,name,contact,medical_history,prescription_taken,additional_info)
-        return res
+        return "Uploaded"
 
 def get_embeddigns_names_from_firebsae():
     embedding_list=[]  # get all embs from firebase
@@ -98,11 +100,12 @@ def find_patient(img_paht):
     patient_name=name_list[idx_min]
     i=dict_keys[idx_min]
     if min_dist< 1.0:
+        name=db.child("patients").child(i).child('name').get().val()
         contact=db.child("patients").child(i).child('contact').get().val()
         medical_hist = db.child("patients").child(i).child('medical_history').get().val()
         prescription_taken=db.child("patients").child(i).child('prescription_taken').get().val()
         additional_info=db.child("patients").child(i).child('additional_info').get().val()
-        s1="EMERGENCY CONTACT: "+contact+"\n"+"MEDICAL HISTORY: "+medical_hist+"\n"+"CURRENT PRESCRIPTIONS: "+prescription_taken+"\nADDITIONAL INFO: "+"\n"+additional_info
+        s1="NAME: "+name+"\n"+"EMERGENCY CONTACT: "+contact+"\n"+"MEDICAL HISTORY: "+medical_hist+"\n"+"CURRENT PRESCRIPTIONS: "+prescription_taken+"\nADDITIONAL INFO: "+"\n"+additional_info
         return s1
     else:
         patient_name="person unknown"
@@ -153,3 +156,56 @@ def edit_details(name,contact,medical_history,prescription_taken,additional_info
         return edit_details_in_firebase(name,contact,medical_history,prescription_taken,additional_info,id_of_patient)
     else:
         return "patient is not registered or check patient name you have given"
+
+def depression(path):
+    img = plt.imread(path)
+    detector = FER()
+    x=(detector.detect_emotions(img))
+    y=(x[0]["emotions"])
+    #print(x)
+    #print(y)
+    a=[]
+    p=0
+    n=0
+    sequence=[]
+    for i,j in y.items():
+        if j>0.20:
+            a.append(i)
+    for i in a:
+        if i=="angry":
+            sequence.append("Negative")
+        elif i=="disgust":
+            sequence.append("Negative")
+        elif i=="fear":
+            sequence.append("Negative")
+        elif i=="sad":
+            sequence.append("Negative")
+        elif i=="happy":
+            sequence.append("Positive")
+        elif i=="surprise":
+            sequence.append("Positive")
+        elif i=="neutral":
+            sequence.append("Positive")
+    #print(a)
+    #print(sequence)
+    for i in sequence:
+        if(i=='Positive'):
+            p+=1
+        if(i=='Negative'):
+            n+=1
+    #print(p)
+    #print(n)
+    total=len(sequence)
+    if(n!=0):
+        dep_level=n/total*100
+    elif(n==0):
+        dep_level=0
+    #print(dep_level)
+    if(dep_level<=15):
+        return "No depression"
+    elif(16<dep_level<=40):
+        return "low depression"
+    elif(40<dep_level<=70):
+        return "mildy depressed"
+    else:
+        return "highly depressed"

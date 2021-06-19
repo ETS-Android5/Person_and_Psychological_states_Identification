@@ -24,12 +24,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="RECORD PERSON DETAILS"
+                android:text="REGISTER"
                 android:fontFamily="serif"
                 android:textSize="23sp"
                 tools:ignore="NotSibling"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
+                />
+            <TextView
+                android:id="@+id/desc"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="You can save your details by registering"
+                android:textColor="@android:color/white"
+                android:fontFamily="serif"
+                android:textSize="14dp"
+                tools:ignore="NotSibling"
+                android:textStyle="bold"
                 />
 
             <EditText

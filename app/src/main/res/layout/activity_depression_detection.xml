@@ -1,9 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".depression_detection">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="  DEPRESSION DETECTOR  "
+                android:textColor="@android:color/white"
+                android:fontFamily="serif"
+                android:textSize="23sp"
+                tools:ignore="NotSibling"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Detects the level of depression from your picture"
+                android:textColor="@android:color/white"
+                android:fontFamily="serif"
+                android:textSize="14dp"
+                tools:ignore="NotSibling"
+                android:textStyle="bold"
+                />
+
+
+            <ImageView
+                android:id="@+id/imageview_pic"
+                android:layout_width="250dp"
+                android:layout_height="320dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginVertical="25dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_baseline_image_24"
+                android:layout_below="@+id/textView"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:id="@+id/linear"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/imageview_pic"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text=" Take a pic "
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/button1"
+                    android:fontFamily="sans-serif-light"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="  Detect  "
+                    android:background="@drawable/roundedbutton"
+                    android:id="@+id/upload"
+                    android:fontFamily="sans-serif-light"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:layout_below="@id/linear"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

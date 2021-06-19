@@ -24,6 +24,5 @@ tools:context=".MainActivity">
         android:layout_gravity="start"
         />
 
-
 </androidx.drawerlayout.widget.DrawerLayout>
 

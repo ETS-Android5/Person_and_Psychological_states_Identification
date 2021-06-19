@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".BugReport">
+    <TextView
+        android:id="@+id/a1"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="BUG REPORT"
+        android:textColor="@android:color/white"
+        android:fontFamily="serif"
+        android:textSize="23sp"
+        tools:ignore="NotSibling"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/a2"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/a1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="You can suggest changes and inform about bugs in the application"
+        android:textColor="@android:color/white"
+        android:fontFamily="serif"
+        android:textSize="14dp"
+        tools:ignore="NotSibling"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t2"
+        android:layout_marginLeft="20dp"
+        android:text="Enter message:"
+        android:textColor="@color/white"
+        android:layout_below="@+id/a2"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        android:textSize="18dp"
+        android:layout_marginTop="150dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/t1"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/t2"
+        android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/sendEmail"
+        android:layout_width="225dp"
+        android:layout_below="@+id/t1"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/roundedbutton"
+        android:fontFamily="sans-serif-light"
+        android:text="SEND REPORT"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</RelativeLayout>

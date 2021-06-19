@@ -197,16 +197,16 @@ public class patient_record_upload extends AppCompatActivity {
                         if (add_info.isEmpty()) {
                             add_info = "empty";
                         }
-
+/*
                         File pat_fold = new File(mPath + "/" + patient_name);
                         if (!pat_fold.exists()) {
                             pat_fold.mkdir();
                         }
-
+*/
                         BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
                         Bitmap bitmap = drawable.getBitmap();
                         try {
-                            File file = new File(mPath + "/" + patient_name + "/image.jpg");
+                            File file = new File(mPath  + "/image.jpg");
                             FileOutputStream out = new FileOutputStream(file);
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
                             out.flush();
@@ -238,7 +238,8 @@ public class patient_record_upload extends AppCompatActivity {
                                                 //myintent.putExtra("translate", str);
                                                 startActivity(myintent);
                                                 Log.d("Output", obj.toString());
-                                                if(obj.toString()=="many"){
+                                                Toast.makeText(patient_record_upload.this,obj.toString() , Toast.LENGTH_SHORT).show();
+                                           /*     if(obj.toString()=="many"){
                                                 Toast.makeText(patient_record_upload.this, "Cant Upload as many faces detected", Toast.LENGTH_SHORT).show();}
                                                 else{
                                                     if(obj.toString()=="zero"){
@@ -247,7 +248,7 @@ public class patient_record_upload extends AppCompatActivity {
                                                     else{
                                                         Toast.makeText(patient_record_upload.this, "Uploaded", Toast.LENGTH_SHORT).show();
                                                     }
-                                                }
+                                                }*/
                                             }
                                         });
 

@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -90,7 +91,7 @@ public class identifying_patient extends AppCompatActivity  {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+              btn_upload.setBackgroundColor(getResources().getColor(R.color.red));
                 BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 try {
@@ -109,7 +110,7 @@ public class identifying_patient extends AppCompatActivity  {
                 final PyObject obj = pyobj.callAttr("find_patient",mPath+"/image.jpg");
                 name.setText(obj.toString());
                 Toast.makeText(identifying_patient.this,"Results are successfully fetched from database", Toast.LENGTH_SHORT).show();
-
+                //btn_upload.setBackground(drawable.ge)
              /*final PyObject obj = pyobj.callAttr("find_patient",mPath+"/image.jpg");
               if (obj.toString()!="") {
                   dialog.dismiss();
