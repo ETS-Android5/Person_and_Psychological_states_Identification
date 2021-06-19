@@ -4,7 +4,9 @@
 
 To get the medical records of the patient using face identification technology in an emergency situation (accidents in roads) and also to detect signs of depression and to classify levels of depression (high,mild,normal).
 
-### Project Guide: Dr.T Senthil Kumar, Asst. Professor, CSE, Amrita School of Engineering.
+### Project Guide: 
+
+Dr.T Senthil Kumar, Asst. Professor, CSE, Amrita School of Engineering.
 
 ### Team:
  1. Anu Bharathy R - CB.EN.U4CSE17206
@@ -20,23 +22,23 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 #### Registration Module:
 
-![Application Homescreen](First.jpg)
+![Application Homescreen](Screenshots/First.jpg)
 
-![Registration Module](Second.jpg)
+![Registration Module](Screenshots/Second.jpg)
 
-![Registered](Third.jpg)
+![Registered](Screenshots/Third.jpg)
 
 #### Identification Module:
 
-![Identification Module](Fourth.jpg)
+![Identification Module](Screenshots/Fourth.jpg)
 
-![Identified](Fifth.jpg)
+![Identified](Screenshots/Fifth.jpg)
 
 #### Depression Detection Module:
 
-![Depression Module](Sixth.jpg)
+![Depression Module](Screenshots/Sixth.jpg)
 
-![Detected](Seventh.jpg)
+![Detected](Screenshots/Seventh.jpg)
 
 ### Results:
 
