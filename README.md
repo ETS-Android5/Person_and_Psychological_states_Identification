@@ -22,7 +22,7 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 #### Registration Module:
 
-<img src="Screenshots/First.jpg" alt="Application Homescreen" width="10" height="10" />
+<img src="Screenshots/First.jpg" alt="Application Homescreen" width="100" height="100" />
 
 ![Registration Module](Screenshots/Second.jpg | width=10 | height=10)
 
