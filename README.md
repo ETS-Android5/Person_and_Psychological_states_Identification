@@ -24,7 +24,7 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 <p float="left">
 <img src="Screenshots/First.jpg" alt="Application Homescreen" width="250" height="500" />
-<img src="Screenshots/Second.jpg" alt="Registration Module" width="250" height="500" />
+<img src="Screenshots/Second.jpeg" alt="Registration Module" width="250" height="500" />
 <img src="Screenshots/Third.jpg" alt="Registered" width="250" height="500" />
 </p>
 
@@ -32,14 +32,14 @@ Our proposed Mobile Application uses **MTCNN** for face detection, **Facenet** f
 
 <p float="left">
 <img src="Screenshots/Fourth.jpg" alt="Identification Module" width="250" height="500" />
-<img src="Screenshots/Fifth.jpg" alt="Identified" width="250" height="500" />
+<img src="Screenshots/Fifth.jpeg" alt="Identified" width="250" height="500" />
 </p>
 
 #### Depression Detection Module:
 
 <p float="left">
 <img src="Screenshots/Sixth.jpg" alt="Depression Module" width="250" height="500" />
-<img src="Screenshots/Seventh.jpg" alt="Detected" width="250" height="500" />
+<img src="Screenshots/Seventh.jpeg" alt="Detected" width="250" height="500" />
  </p>
 
 ### Results:
